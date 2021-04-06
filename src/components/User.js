@@ -1,9 +1,13 @@
+import "./User.css";
+
 function User({ title, first, last, picture, gender }) {
   let classForGender;
 
   if (gender === "male") {
     classForGender = "userContent--male";
-  } else classForGender = "userContent--female";
+  } else if (gender === "female") {
+    classForGender = "userContent--female";
+  }
 
   return (
     <div className={`userContent ${classForGender}`}>

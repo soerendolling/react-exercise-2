@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import User from "./User";
 import "./UserList.css";
+import Header from "./Header";
 
-function UserList() {
+function UserList(onInput) {
   const [userData, setUser] = useState([]);
 
   useEffect(() => {
@@ -11,9 +12,20 @@ function UserList() {
 
     let url = baseUrl;
 
-    // if (male){
-    //     url = "https://randomuser.me/api/?gender=female"
+    // function handleFilter (inputValue) {
+    //   if (inputValue === "male") {
+    //     url = `https://randomuser.me/api/?gender=male`;
+    //   } else if (inputValue === "female") {
+    //     url = `https://randomuser.me/api/?gender=female`;
+    //   } else url = baseUrl;
     // }
+
+    function handleFilter() {
+      const filtered = userData.filter((character) => {
+        return character.gender !== "male";
+      });
+      setUser(filtered);
+    }
 
     fetch(url)
       .then((res) => res.json())
@@ -30,7 +42,7 @@ function UserList() {
   function renderList() {
     return userData.map((userInfo) => (
       <User
-        className="userList"
+        className="user"
         picture={userInfo.picture.medium}
         title={userInfo.name.title}
         first={userInfo.name.first}
@@ -41,7 +53,12 @@ function UserList() {
     ));
   }
 
-  return <article className="userList">{renderList()}</article>;
+  return (
+    <div>
+      <Header />
+      <article className="userList">{renderList()}</article>;
+    </div>
+  );
 }
 
 export default UserList;

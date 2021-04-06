@@ -1,0 +1,16 @@
+.userContent {
+  height: auto;
+  width: 150px;
+  border: solid 3px black;
+  border-radius: 8px;
+  padding: 5px;
+  word-break: break-all;
+}
+
+.userContent--male {
+  background: lightblue;
+}
+
+.userContent--female {
+  background: lightcoral;
+}
