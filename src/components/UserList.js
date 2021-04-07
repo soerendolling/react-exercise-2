@@ -64,7 +64,7 @@ function UserList(onInput) {
         first={userInfo.name.first}
         last={userInfo.name.last}
         gender={userInfo.gender}
-        key={userInfo.name.last}
+        key={userInfo.email}
       />
     ));
   }

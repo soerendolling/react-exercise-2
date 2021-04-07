@@ -3,6 +3,9 @@ import "./User.css";
 function User({ title, first, last, picture, gender }) {
   let classForGender;
 
+  // gender === "male" ? "userContent--male" : "userContent--female"
+  // if gender is equal to male then do "userContent--male" otherwise do "userCOntent--female"
+
   if (gender === "male") {
     classForGender = "userContent--male";
   } else if (gender === "female") {
