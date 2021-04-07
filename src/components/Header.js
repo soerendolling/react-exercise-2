@@ -1,10 +1,6 @@
 import "./Header.css";
 
-function Header(onInput) {
-  //   function handleDropDown() {
-  //     onInput();
-  //   }
-
+function Header() {
   return (
     <header className="header-layout">
       <p>Max Results</p>
@@ -12,7 +8,7 @@ function Header(onInput) {
         <label className="filterMenu" htmlFor="genderFilter">
           Filter:
         </label>
-        <select id="genderFilter" name="gender">
+        <select onCLick="function goes here" id="genderFilter" name="gender">
           <option value="all">All</option>
           <option value="male">Male</option>
           <option value="female">Female</option>

@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from "react";
 import User from "./User";
 import "./UserList.css";
-import Header from "./Header";
 
 function UserList(onInput) {
   const [userData, setUser] = useState([]);
+  const [filter, setFilter] = useState("");
+  const [amount, setAmount] = useState();
 
   useEffect(() => {
-    const baseUrl =
-      "https://randomuser.me/api/?inc=email,gender,name,picture&results=10";
-
+    const baseUrl = "https://randomuser.me/api/";
     let url = baseUrl;
-
-    // function handleFilter (inputValue) {
-    //   if (inputValue === "male") {
-    //     url = `https://randomuser.me/api/?gender=male`;
-    //   } else if (inputValue === "female") {
-    //     url = `https://randomuser.me/api/?gender=female`;
-    //   } else url = baseUrl;
-    // }
-
-    function handleFilter() {
-      const filtered = userData.filter((character) => {
-        return character.gender !== "male";
-      });
-      setUser(filtered);
+    if (amount) {
+      url = `${baseUrl}${amount}`;
     }
 
     fetch(url)
@@ -35,12 +22,41 @@ function UserList(onInput) {
         console.log(newData);
       })
       .catch((error) => {});
-  }, []);
+  }, [amount]);
 
   console.log(userData);
 
+  function handleAmountOfUsers(event) {
+    event.preventDefault();
+    let input = event.target;
+    setAmount(`?results=${input.value}`);
+  }
+
+  let filteredUsers;
+  if (filter === "female") {
+    filteredUsers = userData.filter(
+      (character) => character.gender === "female"
+    );
+  } else if (filter === "male") {
+    filteredUsers = userData.filter((character) => character.gender === "male");
+  } else {
+    filteredUsers = userData;
+  }
+
+  function handleAllFilter() {
+    setFilter("");
+  }
+
+  function handleFemaleFilter() {
+    setFilter("female");
+  }
+
+  function handleMaleFilter() {
+    setFilter("male");
+  }
+
   function renderList() {
-    return userData.map((userInfo) => (
+    return filteredUsers.map((userInfo) => (
       <User
         className="user"
         picture={userInfo.picture.medium}
@@ -55,7 +71,12 @@ function UserList(onInput) {
 
   return (
     <div>
-      <Header />
+      <header className="header-layout">
+        <input type="text" onChange={handleAmountOfUsers} />
+        <button onClick={handleAllFilter}>All</button>
+        <button onClick={handleMaleFilter}>Male</button>
+        <button onClick={handleFemaleFilter}>Female</button>
+      </header>
       <article className="userList">{renderList()}</article>;
     </div>
   );
